@@ -1,16 +1,6 @@
-#include <stdio.h>
-#include <ctime>
-#include <cstdlib>
+#ifndef FUNC
 #include "func.h"
-#include "strTing.h"
-
-//function declarations
-double Fmax(double[], int);
-double Fmin(double[], int);
-double Faverage(double[], int);
-void Fsort(double*, int);
-void swap(double*, double*);
-void ArrTing(void);
+#endif
 
 int main(void)
 {
