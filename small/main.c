@@ -2,7 +2,6 @@
 #include <ctime>
 #include <cstdlib>
 #include "func.h"
-#include "strTing.h"
 
 //function declarations
 double Fmax(double[], int);
