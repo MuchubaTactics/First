@@ -1,4 +1,7 @@
 #define FUNC
+#include <stdio.h>
+#include <stdlib.h>
+
 double Fmax(double arr[], int len);
 double Fmin(double arr[], int len);
 double Faverage(double arr[], int len);
