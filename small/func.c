@@ -1,12 +1,9 @@
-
-#ifndef FUNC
 #include "func.h"
-#endif
 
 
-double Fmax(double arr[], int len)
+int Fmax(int arr[], int len)
 {
-	double max = arr[0];
+	int max = arr[0];
 	for (int i = 0; i < len; i++)
 	{
 		arr[i] > max ? max = arr[i] : max;
@@ -14,9 +11,9 @@ double Fmax(double arr[], int len)
 	return max;
 }
 
-double Fmin(double arr[], int len)
+int Fmin(int arr[], int len)
 {
-	double min = arr[0];
+	int min = arr[0];
 	for (int i = 0; i < len; i++)
 	{
 		arr[i] < min ? min = arr[i] : min;
@@ -24,24 +21,25 @@ double Fmin(double arr[], int len)
 	return min;
 }
 
-double Faverage(double arr[], int len)
+double Faverage(int arr[], int len)
 {
 	double average = 0;
 	for (int i = 0; i < len; i++)
 	{
 		average += arr[i];
 	}
-	average /= len;
-	return average;
+	return average / len;
 }
 
-void swap(double* x, double* y)
+void swap(int* x, int* y)
 {
-	double temp = *x;
+	int temp = *x;
 	*x = *y;
 	*y = temp;
 }
 
+/*
+* previous sorting algorithm implemenation
 double* FsortMin(double* x, double* y)
 {
 	double* min = x;
@@ -63,39 +61,49 @@ void Fsort(double* arr, int len)
 		top++;
 	}
 }
+*/
 
-void ArrTing(void)
+int partition(int* arr, int low, int high)
 {
-	srand(time(0));
-	double* ptr;
-	int len = 1000;
-	ptr = (double*)calloc(len, sizeof(double));
-	if (ptr == NULL)
+	int* a = arr + low;
+	int* pivot = arr + high;
+	int* b = a;
+	while (b <= pivot)
 	{
-		printf("Memory wasn't allocated ):\n");
-		return;
+		if (b == pivot)
+		{
+			if (*a > *pivot)
+			{
+				swap(pivot, a);
+			}
+			return a - arr;
+		}
+		if (*a < *pivot)
+		{
+			a++;
+			b++;
+		}
+		else
+		{
+			if (*b < *pivot && *b < *a)
+			{
+				swap(b, a);
+				a++;
+			}
+			b++;
+		}
+
 	}
-	else
+}
+
+
+void myQuicksort(int* arr, int low, int high)
+{
+	if (low < high)
 	{
-		for (int i = 0; i < len; i++)
-		{
-			ptr[i] = (double)(rand() % (1001));
-		}
-		for (int i = 0; i < len; i++)
-		{
-			printf("%.lf\n", ptr[i]);
-		}
-		printf("\n\n\n");
-		double max, min, average;
-
-		max = Fmax(ptr, len); min = Fmin(ptr, len); average = Faverage(ptr, len);
-
-		printf("%.lf\n%.lf\n%.lf", max, min, average);
-		Fsort(ptr, len);
-		printf("\n\n\n");
-		for (int i = 0; i < len; i++)
-		{
-			printf("%.lf\n", ptr[i]);
-		}
+		int piv = partition(arr, low, high);
+		myQuicksort(arr, low, piv - 1);
+		myQuicksort(arr, piv + 1, high);
 	}
+
 }
